@@ -158,7 +158,7 @@ function showPM(uname) {
         toppanel.html("<h1>"+uname+"</h1>");
 
         var bottompanel=$('#bottompanel');
-        bottompanel.html("<input type=\"text\" name=\"reply\" id=\"replypmtext\"/><input type=\"button\" value=\">\" id=\"replypmbutton\" onclick=\"return sendPM()\"/>");
+        bottompanel.html("<input type=\"text\" name=\"reply\" id=\"replypmtext\" onkeypress=\"sendPMformListener(this.form,event)\"/><input type=\"button\" value=\">\" id=\"replypmbutton\" onclick=\"return sendPM()\"/>");
         bottompanel.css("display","block");
 
         var content=$('#content');
@@ -169,6 +169,12 @@ function showPM(uname) {
         $('#replypmtext').focus();
     });
     return false;
+}
+
+function sendPMformListener(formEl,ev) {
+    if(ev.ctrlKey && (ev.keyCode==10 || ev.keyCode==13)) {
+        sendPM();
+    }
 }
 
 function sendPM() {
