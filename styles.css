@@ -63,5 +63,7 @@ blockquote { border-left: 1px dashed #CCC; margin: 10px 0 10px 10px; padding-lef
 #sidepanel hr { margin: 10px 0; }
 #sidepanel li { overflow: hidden; margin: 5px 0; }
 
+#groupslist .unreadcnt { float: right; background: #555; padding: 1px 3px;  }
+
 #pmulist img { width: 32px; height: 32px; margin-right: 5px; vertical-align: middle; }
 #pmulist .unreadcnt { float: right; margin-top: 4px; background: #555; padding: 1px 3px;  }

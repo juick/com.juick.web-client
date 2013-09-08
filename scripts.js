@@ -59,6 +59,12 @@ function incomingPM(msg) {
 
 function incomingPost(msg) {
     console.log(msg);
+    if(groups[0].MessagesCount>0) {
+        groups[0].MessagesCount++;
+    } else {
+        groups[0].MessagesCount=1;
+    }
+    initGroupsList();
 }
 
 function incomingComment(msg) {
@@ -80,16 +86,33 @@ function initPMUList() {
     });
 }
 
-function showMessages(param) {
+function initGroupsList() {
+    var ul=$('#groupslist');
+    ul.empty();
+    $.each(groups,function(i,item) {
+        var a=$("<a/>").attr("href","#").attr("onclick","return showGroup('"+item.gid+"')");
+        a.append(item.name);
+        if(item.MessagesCount) {
+            a.append($("<div/>").attr("class","unreadcnt").text(item.MessagesCount));
+        }
+        var li=$("<li/>").append(a);
+        ul.append(li);
+    });
+}
+
+function showGroup(gid) {
     currentPMUser="";
-    $.getJSON('http://api.juick.com/messages?hash='+hash+'&'+param+'&callback=?').done(function(data) {
+    groups[0].MessagesCount=0;
+    initGroupsList();
+    
+    $.getJSON('http://api.juick.com/home?hash='+hash+'&callback=?').done(function(data) {
         var ul=$('<ul/>');
         ul.attr("id","msglist");
         $.each(data,function(i,item) {
             var tags="";
             if(item.tags) {
                 $.each(item.tags,function(t,tag) {
-                    tags+=" *<a href=\"#\" onclick=\"return showMessages('tag="+encodeURIComponent(tag)+"')\">"+tag+"</a>";
+                    tags+=" *"+tag;
                 });
             }
             var photo="";
@@ -104,8 +127,48 @@ function showMessages(param) {
                 "<div class=\"msg-ts\"><a href=\"#\" onclick=\"return showThread("+item.mid+")\">"+item.timestamp+"</a></div>"+
                 "</div>"+
                 "<div class=\"msg-txt\">"+item.body+"</div>"+
-                photo+
-                "<div class=\"msg-comment\"><textarea name=\"body\" rows=\"1\" class=\"reply\" placeholder=\"Add a comment...\" onkeypress=\"postformListener(this.form,event)\"></textarea></div>"
+                photo//+
+//                "<div class=\"msg-comment\"><textarea name=\"body\" rows=\"1\" class=\"reply\" placeholder=\"Add a comment...\" onkeypress=\"postformListener(this.form,event)\"></textarea></div>"
+                );
+            ul.append(li);
+        });
+        $('#toppanel').css("display","none");
+        $('#bottompanel').css("display","none");
+        var content=$('#content');
+        content.attr("class","");
+        content.empty();
+        content.append(ul);
+        $(window).scrollTop(0);
+    });
+    return false;
+}
+
+function showMessages(param) {
+    currentPMUser="";
+    $.getJSON('http://api.juick.com/messages?hash='+hash+'&'+param+'&callback=?').done(function(data) {
+        var ul=$('<ul/>');
+        ul.attr("id","msglist");
+        $.each(data,function(i,item) {
+            var tags="";
+            if(item.tags) {
+                $.each(item.tags,function(t,tag) {
+                    tags+=" *"+tag+"</a>";
+                });
+            }
+            var photo="";
+            if(item.photo) {
+                photo="<div class=\"msg-media\"><img src=\""+item.photo.small+"\"/></div>";
+            }
+            var li=$("<li/>").attr("class","msg").html(
+                "<div class=\"msg-header\">"+
+                "<div class=\"msg-menu\"></div>"+
+                "<div class=\"msg-avatar\"><a href=\"#\" onclick=\"return showUser('"+item.user.uname+"')\"><img src=\"//i.juick.com/a/"+item.user.uid+".png\"/></a></div>"+
+                "<div class=\"msg-uname\"><a href=\"#\" onclick=\"return showUser('"+item.user.uname+"')\">@"+item.user.uname+"</a>:"+tags+"</div>"+
+                "<div class=\"msg-ts\"><a href=\"#\" onclick=\"return showThread("+item.mid+")\">"+item.timestamp+"</a></div>"+
+                "</div>"+
+                "<div class=\"msg-txt\">"+item.body+"</div>"+
+                photo//+
+                //"<div class=\"msg-comment\"><textarea name=\"body\" rows=\"1\" class=\"reply\" placeholder=\"Add a comment...\" onkeypress=\"postformListener(this.form,event)\"></textarea></div>"
                 );
             ul.append(li);
         });
