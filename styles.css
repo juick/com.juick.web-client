@@ -1,0 +1,67 @@
+* { margin: 0; padding: 0; }
+html { background: #EEEEE5; }
+h1,h2,h3 { font-weight: normal; }
+a { text-decoration: none; color: #069; }
+ul { list-style-type: none; }
+hr { height: 1px; background: #DDD; border: 0; }
+
+#content { margin: 10px 10px 10px 260px; }
+#content.withtoppanel { margin-top: 70px; }
+#content.withbottompanel { margin-bottom: 75px; }
+
+/******************************************************************************/
+
+#toppanel { display: none; position: fixed; top: 0; left: 250px; right: 0; background: #DDDDD5; border-bottom: 1px solid #BBB; }
+#toppanel>h1 { text-align: center; font-size: 18pt; margin: 10px 0; }
+
+/******************************************************************************/
+
+#bottompanel { display: none; position: fixed; bottom: 0; left: 250px; right: 0; background: #DDDDD5; border-top: 1px solid #BBB; text-align: center; }
+#replypmtext { border: 1px solid #CCC; padding: 4px 5px; width: 590px; margin: 15px 5px 15px 0; }
+#replypmbutton { border: 1px solid #CCC; padding: 3px 0; width: 33px; }
+
+/******************************************************************************/
+
+#msglist { width: 640px; margin: 0 auto; }
+
+.msg { padding: 15px; margin: 8px 0 16px 0; background: #FFF; overflow: hidden; }
+.msg-header { margin-bottom: 15px; }
+.msg-avatar img { float: left; width: 48px; height: 48px; vertical-align: top; margin-right: 10px; }
+.msg-uname { padding-top: 2px; margin-bottom: 5px; }
+.msg-ts { font-size: small; }
+.msg-ts, .msg-ts>a { color: #999; }
+.msg-menu { float: right; width: 16px; height: 16px; display: inline-block; vertical-align: top; margin: 0 0 0 6px;
+            background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAMAAAAoLQ9TAAAAAXNSR0IArs4c6QAAALRQTFRFAAAAldX/ncT/ksj/ltL/nMb/lMn/mcz/l9H/lcr/mZmZmcz/m83/mJiYmZmZmcz/mM7/mpqamsr/l8v/m83/mJiYmM7/l8v/mZmZmcz/mpqamMv/mcz/mM3/ms3/msv/mMv/mMz/mcz/msz/mc3/mMz/mcz/msz/mc3/mcv/mc3/mcv/mcz/mcz/mcz/mcz/mZmZmZmZmcz/mcz/mcz/mcz/mcz/mcz/mcz/mcz/mcz/mZmZiZsGCAAAADx0Uk5TAAwNDhESExQWGC0tLi8yMjQ1NTY4OTk7PDxESktNUVNUd3h5eoGCg4mKmMvMzc7P29zd3uLj7O3u8vT2+A5wCAAAAJFJREFUGBkFwQlCgkAAAMDRxEySkryyzDxSAc+gkvX//2oGAAB42J5COG46AJ+/+SiKxvl1DsyqJyCtZnBXxgDxdxPrHQDZCvvUNIFkalAgtCSXHr1LIqpRt+ifu91zn6hG8YLh7TbEoMAyg8kEsgWaZQzwWDbgvXoG0p83YH7Nx+32a/73AdDZHEIovu4BAMA/t6QMuyHliCkAAAAASUVORK5CYII=") no-repeat; }
+.msg-place { clear: both; font-size: small; margin: 8px 0 8px 58px; }
+.msg-place>a { color: #999; }
+.msg-txt { clear: both; }
+.msg-media { text-align: center; margin-top: 10px; }
+
+
+.msg-links { font-size: small; margin: 8px 0 0 68px; color: #999; }
+.msg-comments { margin: 8px 0 0 0; padding: 5px 0 0 10px; overflow: hidden; font-size: small; border-top: 1px solid #DDD; color: #AAA; }
+.msg-comment { margin: 8px 0 0 0; }
+.msg-comment textarea { width: 604px; padding: 2px; resize: vertical; vertical-align: top; min-height: 12pt; height: 12pt; border: 1px solid #DDD; }
+.msg-comment .narrow { width: 450px; }
+.msg-comment input { width: 50px; margin-left: 6px; vertical-align: top; border: 1px solid #CCC; background: #EEE; color: #999; }
+.msg-recomms { margin: 10px 0 0 68px; overflow: hidden; font-size: small; color: #AAA; }
+blockquote { border-left: 1px dashed #CCC; margin: 10px 0 10px 10px; padding-left: 10px; }
+
+/******************************************************************************/
+
+#pmlist { width: 640px; margin: 0 auto; }
+
+.pm-in,.pm-out { border: 1px solid #E0E0E0; margin: 10px 0; padding: 10px; }
+.pm-in { width: 85%; background: #FFF; }
+.pm-out { margin-left: 15%; background: #DFD; }
+
+/******************************************************************************/
+
+#sidepanel { background: #333; position: fixed; top: 0; left: 0; bottom: 0; width: 230px; padding: 10px; border-top: 10px solid #990000; }
+#sidepanel.online { border-color: #009900; }
+#sidepanel a { color: #DDD; text-decoration: none; }
+#sidepanel hr { margin: 10px 0; }
+#sidepanel li { overflow: hidden; margin: 5px 0; }
+
+#pmulist img { width: 32px; height: 32px; margin-right: 5px; vertical-align: middle; }
+#pmulist .unreadcnt { float: right; margin-top: 4px; background: #555; padding: 1px 3px;  }
