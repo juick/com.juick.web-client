@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html>
+<head>
+<link rel="stylesheet" href="styles.css"/>
+<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script type="text/javascript" src="scripts.js"></script>
+<title>Juick</title>
+</head>
+
+<body>
+
+<div id="toppanel"></div>
+<div id="content"></div>
+<div id="bottompanel"></div>
+<div id="sidepanel">
+  <ul id="groupslist">
+    <li><a href="#" onclick="return showMessages('')">All messages</a></li>
+  </ul>
+  <hr/>
+  <ul id="pmulist"></ul>
+</div>
+
+<script type="text/javascript">
+var hash='3NZr98WC38IAj6Cp'; // user authorization code, from http://juick.com/dev/
+var user_id=12345; // authorized user id
+var lastConversations=[{"uid":1,"uname":"ugnich"}];
+$(document).ready(function() {
+  initPMUList(lastConversations);
+  initWS();
+});
+</script>
+
+</body>
+</html>
