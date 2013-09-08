@@ -34,7 +34,25 @@ function incomingPM(msg) {
             $('#pmlist').append($("<li/>").attr("class","pm-in").text(msg.body));
             $(window).scrollTop($(document).height());
         } else {
-            console.log(msg);
+            var modified=false;
+            $.each(lastConversations,function(i,item) {
+                if(item.uname===msg.user.uname) {
+                    if(item.MessagesCount>0) {
+                        item.MessagesCount++;
+                    } else {
+                        item.MessagesCount=1;
+                    }
+                    modified=true;
+                }
+            });
+            if(!modified) {
+                lastConversations.unshift({
+                    uname:msg.user.uname,
+                    uid:msg.user.uid,
+                    MessagesCount:"1"
+                });
+            }
+            initPMUList();
         }
     } catch(err) { }
 }
@@ -47,13 +65,13 @@ function incomingComment(msg) {
     console.log(msg);
 }
 
-function initPMUList(data) {
+function initPMUList() {
     var ul=$('#pmulist');
     ul.empty();
-    $.each(data,function(i,item) {
-        var i=$("<img/>").attr("src","http://i.juick.com/as/"+item.uid+".png");
+    $.each(lastConversations,function(i,item) {
+        var img=$("<img/>").attr("src","http://i.juick.com/as/"+item.uid+".png");
         var a=$("<a/>").attr("href","#").attr("onclick","return showPM('"+item.uname+"')");
-        a.append(i).append(item.uname);
+        a.append(img).append(item.uname);
         if(item.MessagesCount) {
             a.append($("<div/>").attr("class","unreadcnt").text(item.MessagesCount));
         }
@@ -63,6 +81,7 @@ function initPMUList(data) {
 }
 
 function showMessages(param) {
+    currentPMUser="";
     $.getJSON('http://api.juick.com/messages?hash='+hash+'&'+param+'&callback=?').done(function(data) {
         var ul=$('<ul/>');
         ul.attr("id","msglist");
@@ -107,6 +126,17 @@ function showUser(uname) {
 }
 
 function showPM(uname) {
+    var modified=false;
+    $.each(lastConversations,function(i,item) {
+        if(item.uname===uname && item.MessagesCount>0) {
+            item.MessagesCount=0;
+            modified=true;
+        }
+    });
+    if(modified) {
+        initPMUList();
+    }
+    
     $.getJSON('http://api.juick.com/pm?hash='+hash+'&uname='+uname+'&callback=?').done(function(data) {
         var ul=$('<ul/>');
         ul.attr("id","pmlist");
